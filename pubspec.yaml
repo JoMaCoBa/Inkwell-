@@ -1,0 +1,51 @@
+name: inkwell
+description: Premium comic reader for Android — Neo-Brutalism UI
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management & DI
+  provider: ^6.1.0
+  get_it: ^7.6.0
+
+  # Functional programming
+  dartz: ^0.10.1
+  equatable: ^2.0.5
+
+  # Database
+  sqflite: ^2.3.0
+
+  # File parsing
+  archive: ^3.4.0
+  pdfx: ^2.6.0
+
+  # UI
+  photo_view: ^0.14.0
+  google_fonts: ^6.1.0
+  flutter_animate: ^4.5.0
+
+  # File system
+  path_provider: ^2.1.0
+  path: ^1.9.0
+  file_picker: ^6.1.0
+
+  # Permissions
+  permission_handler: ^11.3.0
+
+  # Utilities
+  uuid: ^4.3.0
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
