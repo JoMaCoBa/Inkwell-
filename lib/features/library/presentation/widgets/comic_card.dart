@@ -63,31 +63,33 @@ class _ComicCardState extends State<ComicCard> {
 
   Widget _buildCover() {
     final path = widget.comic.coverImagePath;
-    if (path.isNotEmpty && File(path).existsSync()) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(1),
-        child: Image.file(
-          File(path),
-          fit: BoxFit.cover,
-          width: double.infinity,
-          height: double.infinity,
-        ),
-      );
-    }
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Text(
-          widget.comic.title.toUpperCase(),
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: InkwellColors.textOnDark,
-                shadows: [
-                  const Shadow(color: Colors.black45, blurRadius: 4)
-                ],
+    final child = path.isNotEmpty && File(path).existsSync()
+        ? ClipRRect(
+            borderRadius: BorderRadius.circular(1),
+            child: Image.file(
+              File(path),
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+          )
+        : Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Text(
+                widget.comic.title.toUpperCase(),
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: InkwellColors.textOnDark,
+                      shadows: [const Shadow(color: Colors.black45, blurRadius: 4)],
+                    ),
               ),
-        ),
-      ),
+            ),
+          );
+
+    return Hero(
+      tag: 'cover_${widget.comic.id}',
+      child: child,
     );
   }
 

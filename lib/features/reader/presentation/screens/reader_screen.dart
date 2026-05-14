@@ -4,6 +4,8 @@ import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import '../../../../app/theme/app_theme.dart';
 import '../../../library/domain/entities/comic.dart';
+import '../../../settings/domain/entities/app_settings.dart';
+import '../../../settings/presentation/providers/settings_provider.dart';
 import '../providers/reader_provider.dart';
 
 class ReaderScreen extends StatefulWidget {
@@ -99,16 +101,23 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
   Widget _buildPageView(ReaderProvider provider) {
     final session = provider.session!;
-    return PageView.builder(
-      controller: _pageController,
-      itemCount: session.totalPages,
-      onPageChanged: (index) => provider.goToPage(index),
-      itemBuilder: (context, index) {
-        return _ComicPage(
-          comic: widget.comic,
-          pageName: session.pages[index],
-        );
-      },
+    final isRtl = context.read<SettingsProvider>().settings.readingDirection ==
+        ReadingDirection.rtl;
+
+    return Directionality(
+      textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
+      child: PageView.builder(
+        controller: _pageController,
+        reverse: isRtl,
+        itemCount: session.totalPages,
+        onPageChanged: (index) => provider.goToPage(index),
+        itemBuilder: (context, index) {
+          return _ComicPage(
+            comic: widget.comic,
+            pageName: session.pages[index],
+          );
+        },
+      ),
     );
   }
 

@@ -86,6 +86,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetComicPages(sl()));
   sl.registerLazySingleton(() => SaveProgress(sl()));
   sl.registerFactory(() => ReaderProvider(
+        cbzParser: sl(),
         getComicPages: sl(),
         saveProgress: sl(),
         readerRepository: sl(),

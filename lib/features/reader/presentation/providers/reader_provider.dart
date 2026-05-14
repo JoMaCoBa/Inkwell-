@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import '../../../../core/parsers/cbz_parser.dart';
 import '../../../library/domain/entities/comic.dart';
 import '../../domain/entities/reading_session.dart';
 import '../../domain/repositories/reader_repository.dart';
@@ -10,11 +11,13 @@ class ReaderProvider extends ChangeNotifier {
   final GetComicPages getComicPages;
   final SaveProgress saveProgress;
   final ReaderRepository readerRepository;
+  final CbzParser cbzParser;
 
   ReaderProvider({
     required this.getComicPages,
     required this.saveProgress,
     required this.readerRepository,
+    required this.cbzParser,
   });
 
   Comic? comic;
@@ -59,6 +62,7 @@ class ReaderProvider extends ChangeNotifier {
   }
 
   void close() {
+    cbzParser.closeArchive();
     comic = null;
     session = null;
     error = null;
